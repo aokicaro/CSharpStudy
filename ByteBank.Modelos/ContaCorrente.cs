@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ByteBank.Modelos
 {
     /// <summary>
-    /// Define uma conta corrente do banco.
+    /// Define uma Conta Corrente do banco ByteBank.
     /// </summary>
     public class ContaCorrente
     {
@@ -40,11 +40,12 @@ namespace ByteBank.Modelos
                 _saldo = value;
             }
         }
+
         /// <summary>
-        /// Cria uma instância de ContaCorrente.
+        /// Cria uma instância de ContaCorrente com os argumentos utilizados.
         /// </summary>
-        /// <param name="agencia">Representa o valor da propriedade <see cref="Agencia"/> e deve possuir um valor maior que zero.</param>
-        /// <param name="numero">Representa o valor da propriedade <see cref="Numero"/> e deve possuir um valor maior que zero.</param>
+        /// <param name="agencia"> Representa o valor da propriedade <see cref="Agencia"/> e deve possuir um valor maior que zero. </param>
+        /// <param name="numero"> Representa o valor da propriedade <see cref="Numero"/> e deve possuir um valor maior que zero. </param>
         public ContaCorrente(int agencia, int numero)
         {
             if (numero <= 0)
@@ -63,12 +64,13 @@ namespace ByteBank.Modelos
             TotalDeContasCriadas++;
             TaxaOperacao = 30 / TotalDeContasCriadas;
         }
+
         /// <summary>
-        /// Realiza o saque e atualiza o valor da propriedade <see cref="Saldo"/>
+        /// Realiza o saque e atualiza o valor da propriedade <see cref="Saldo"/>.
         /// </summary>
-        /// <exception cref="ArgumentException"> Exceção lançada quando um valor negativo é utilizado no argumento <paramref name="valor"/> </exception>
-        /// <exception cref="SaldoInsuficienteException">Exceção lançada quando o valor <paramref name="valor"/> é maior que o valor da propriedade <see cref="Saldo"/></exception>
-        /// <param name="valor">Representa o valor do saque, deve ser maior que 0 e menor que o <see cref="Saldo"/></param>
+        /// <exception cref="ArgumentException"> Exceção lançada quando um valor negativo é utilizado no argumento <paramref name="valor"/>. </exception>
+        /// <exception cref="SaldoInsuficienteException"> Exceção lançada quando o valor de <paramref name="valor"/> é maior que o valor da propriedade <see cref="Saldo"/>. </exception>
+        /// <param name="valor"> Representa o valor do saque, deve ser maior que 0 e menor que o <see cref="Saldo"/>. </param>
         public void Sacar(double valor)
         {
             if (valor < 0)
@@ -109,6 +111,19 @@ namespace ByteBank.Modelos
 
             contaDestino.Depositar(valor);
         }
+
+        public override bool Equals(object obj)
+        {
+            ContaCorrente outraConta = obj as ContaCorrente;
+
+            if(outraConta == null)
+            {
+                return false;
+            }
+
+            return Numero == outraConta.Numero && Agencia == outraConta.Agencia;
+        }
+
     }
 
 }
